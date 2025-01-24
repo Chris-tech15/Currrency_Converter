@@ -1,0 +1,275 @@
+<MainScreen>:
+    name: "main"
+    FloatLayout:
+        # General background set to white
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1  # White background
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # From Currency Button (Fills the top-left)
+        Button:
+            text: "From: " + app.from_currency
+            size_hint: 0.48, 0.1
+            pos_hint: {"x": 0.0, "y": 0.9}
+            on_release: app.root.current = "from_currency"
+            background_color: 0.1, 0.67, 0.13, 1  # #1AAD21 (greenish)
+            color: 1, 1, 1, 1  # White text color
+
+        # To Currency Button (Fills the top-right)
+        Button:
+            text: "To: " + app.to_currency
+            size_hint: 0.48, 0.1
+            pos_hint: {"x": 0.52, "y": 0.9}
+            on_release: app.root.current = "to_currency"
+            background_color: 0.1, 0.67, 0.13, 1  # #1AAD21 (greenish)
+            color: 1, 1, 1, 1  # White text color
+
+        # From Label (Conversion Input)
+        Label:
+            id: from_label
+            text: "0"
+            size_hint: 0.4, 0.2
+            pos_hint: {"x": 0.05, "y": 0.6}
+            font_size: 38
+            halign: "center"
+            valign: "middle"
+            color: 0, 0, 0, 1  # Black text color
+            background_color: 0.1, 0.67, 0.13, 1  # #1AAD21 (greenish)
+
+        Label:
+            text: "="
+            size_hint: 0.9, 0.2
+            pos_hint: {"x": 0.05, "y": 0.6}
+            font_size: 48
+            halign: "center"
+            valign: "middle"
+            color: 0, 0, 0, 1  # Black text color
+            background_color: 0.1, 0.67, 0.13, 1  # #1AAD21 (greenish)
+
+        # To Label (Converted Result)
+        Label:
+            id: to_label
+            text: "0"
+            size_hint: 0.4, 0.2
+            pos_hint: {"x": 0.55, "y": 0.6}
+            font_size: 38
+            halign: "center"
+            valign: "middle"
+            color: 0, 0, 0, 1  # Black text color
+            background_color: 0.1, 0.67, 0.13, 1  # #1AAD21 (greenish)
+
+        # Numpad Layout (GridLayout inside a FloatLayout for better flexibility)
+        FloatLayout:
+            size_hint: 0.89, 0.5
+            pos_hint: {"x": 0, "y": 0.0}
+
+            GridLayout:
+                rows: 4
+                size_hint: 0.9, 1  # Take up 80% of the width
+                pos_hint: {"x": 0, "y": 0}
+                padding: 0
+                spacing: 0
+
+                # Row 1
+                Button:
+                    text: "7"
+                    on_press: app.update_label("from_label", self.text)
+                    size_hint: 1, 1
+                    background_color: 0.28, 0.19, 0.83, 1  # #4731D4 (blue)
+                    color: 1, 1, 1, 1  # White text color
+                Button:
+                    text: "8"
+                    on_press: app.update_label("from_label", self.text)
+                    size_hint: 1, 1
+                    background_color: 0.28, 0.19, 0.83, 1  # #4731D4 (blue)
+                    color: 1, 1, 1, 1  # White text color
+                Button:
+                    text: "9"
+                    on_press: app.update_label("from_label", self.text)
+                    size_hint: 1, 1
+                    background_color: 0.28, 0.19, 0.83, 1  # #4731D4 (blue)
+                    color: 1, 1, 1, 1  # White text color
+
+                # Row 2
+                Button:
+                    text: "4"
+                    on_press: app.update_label("from_label", self.text)
+                    size_hint: 1, 1
+                    background_color: 0.28, 0.19, 0.83, 1  # #4731D4 (blue)
+                    color: 1, 1, 1, 1  # White text color
+                Button:
+                    text: "5"
+                    on_press: app.update_label("from_label", self.text)
+                    size_hint: 1, 1
+                    background_color: 0.28, 0.19, 0.83, 1  # #4731D4 (blue)
+                    color: 1, 1, 1, 1  # White text color
+                Button:
+                    text: "6"
+                    on_press: app.update_label("from_label", self.text)
+                    size_hint: 1, 1
+                    background_color: 0.28, 0.19, 0.83, 1  # #4731D4 (blue)
+                    color: 1, 1, 1, 1  # White text color
+
+                # Row 3
+                Button:
+                    text: "1"
+                    on_press: app.update_label("from_label", self.text)
+                    size_hint: 1, 1
+                    background_color: 0.28, 0.19, 0.83, 1  # #4731D4 (blue)
+                    color: 1, 1, 1, 1  # White text color
+                Button:
+                    text: "2"
+                    on_press: app.update_label("from_label", self.text)
+                    size_hint: 1, 1
+                    background_color: 0.28, 0.19, 0.83, 1  # #4731D4 (blue)
+                    color: 1, 1, 1, 1  # White text color
+                Button:
+                    text: "3"
+                    on_press: app.update_label("from_label", self.text)
+                    size_hint: 1, 1
+                    background_color: 0.28, 0.19, 0.83, 1  # #4731D4 (blue)
+                    color: 1, 1, 1, 1  # White text color
+
+                # Row 4 (adding Erase, 0, Comma buttons)
+                Button:
+                    text: "."
+                    on_press: app.update_label("from_label", self.text)
+                    size_hint: 1, 1
+                    background_color: 0.28, 0.19, 0.83, 1  # #4731D4 (blue)
+                    color: 1, 1, 1, 1  # White text color
+                Button:
+                    text: "0"
+                    on_press: app.update_label("from_label", self.text)
+                    size_hint: 1, 1
+                    background_color: 0.28, 0.19, 0.83, 1  # #4731D4 (blue)
+                    color: 1, 1, 1, 1  # White text color
+                Button:
+                    text: "x"  # Delete the last element
+                    on_press: app.remove_last_digit("from_label")
+                    size_hint: 1, 1
+                    background_color: 0.56, 0, 1, 1  # #8F00FF (purple)
+                    color: 1, 1, 1, 1  # white text color
+
+        # b Button just above Enter Button
+        Button:
+            text: "C"  # Button functionality (e.g., clear label or similar)
+            on_press: app.clear_label("from_label")
+            size_hint: 0.2, 0.125  # Adjusted height
+            pos_hint: {"x": 0.8, "y": 0.377}  # Positioned above Enter button
+            background_color: 0.56, 0, 1, 1  # #8F00FF (purple)
+            color: 1, 1, 1, 1  # White text color
+
+        # Enter Button placed at the right side with the same height as numpad
+        Button:
+            text: "Enter"
+            on_press: app.exchange()  # Trigger conversion
+            size_hint: 0.2, 0.375
+            pos_hint: {"x": 0.8, "y": 0.}  # Positioned at the right side
+            background_color: 0.1, 0.67, 0.13, 1  # Green color
+            color: 1, 1, 1, 1  # White text color
+
+
+
+
+<FromCurrencyScreen>:
+    name: "from_currency"
+    ScrollView:
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1  # White background
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        GridLayout:
+            id: from_currency_grid
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            padding: [10, 20]
+            spacing: 10
+
+            # Search bar style
+            TextInput:
+                hint_text: "Search currencies"
+                size_hint_y: None
+                height: 40
+                multiline: False
+                on_text_validate: root.filter_currencies(self)
+                background_color: 1, 1, 1, 1  # White background for the search bar
+                foreground_color: 0, 0, 0, 1  # Black text color
+
+            # Display currency options
+            GridLayout:
+                id: from_currency_options
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                padding: [10, 20]
+                spacing: 10
+
+                Button:
+                    text: "USD"
+                    background_normal: ""  # Required to show the custom color
+                    background_color: 0.1, 0.67, 0.13, 1  # #1AAD21 (greenish)
+                    color: 1, 1, 1, 1  # White text color
+                    on_release: app.select_currency("USD")
+
+                Button:
+                    text: "EUR"
+                    background_normal: ""  # Required to show the custom color
+                    background_color: 0.1, 0.67, 0.13, 1  # #1AAD21 (greenish)
+                    color: 1, 1, 1, 1  # White text color
+                    on_release: app.select_currency("EUR")
+
+<ToCurrencyScreen>:
+    name: "to_currency"
+    ScrollView:
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1  # White background
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        GridLayout:
+            id: to_currency_grid
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            padding: [10, 20]
+            spacing: 10
+
+            # Search bar style
+            TextInput:
+                hint_text: "Search currencies"
+                size_hint_y: None
+                height: 40
+                multiline: False
+                on_text_validate: root.filter_currencies(self)
+                background_color: 1, 1, 1, 1  # White background for the search bar
+                foreground_color: 0, 0, 0, 1  # Black text color
+
+            # Display currency options
+            GridLayout:
+                id: to_currency_options
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                padding: [10, 20]
+                spacing: 10
+
+                Button:
+                    text: "USD"
+                    background_normal: ""  # Required to show the custom color
+                    background_color: 0.1, 0.67, 0.13, 1  # #1AAD21 (greenish)
+                    color: 1, 1, 1, 1  # White text color
+                    on_release: app.select_currency("USD")
+
+                Button:
+                    text: "EUR"
+                    background_normal: ""  # Required to show the custom color
+                    background_color: 0.1, 0.67, 0.13, 1  # #1AAD21 (greenish)
+                    color: 1, 1, 1, 1  # White text color
+                    on_release: app.select_currency("EUR")
